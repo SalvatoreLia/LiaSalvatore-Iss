@@ -1,0 +1,596 @@
+	<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <!--
+<link rel="stylesheet" type="text/css" href="../css/issStyle1.css">
+<script type="text/javascript" src="../css/issStyle.js"></script>
+-->
+<style type="text/css">
+body
+{
+    margin-left:  30px;
+    margin-right: 30px;
+};
+
+P
+{
+    font-family: Tahoma;
+    font-size: 10pt;
+};
+
+a, a:visited, a:active, a:link, a:hover {
+    text-decoration: underline;
+    color: #545454;
+    background-color: transparent;
+	font-size: 93%;
+}
+
+a:hover {
+    background-color: #cccccc;
+}
+
+
+hr {
+    clear: both;
+    height: 1px;
+    color: #242424;
+    background-color: transparent;
+}
+
+h1, h2, h3 {
+    color: #242424;
+    clear: left;
+    font: 100% Tahoma, Helvetica, Arial, sans-serif;
+    margin-bottom: 0.5em;
+    padding-top: 0.5em;
+	border-radius: 10px;
+	padding: 5px;
+}
+
+top {
+	width: 100%;
+}
+
+
+#i {
+    color: #ff1010;
+}
+tt{
+	font-family: "Arial";
+    font-size: 90%;
+	color: #006600;
+}
+em{
+	font-family: "Arial";
+    font-size: 80%;
+	font-weight: bold;
+	border-style:solid;
+	border-color: #abe876;
+    color: #1632cc;
+}
+bc{
+	font-family: "Arial";
+	font-size: 90%;
+	font-weight: bold;
+    color: #990000;
+	background-color: #fcf8c7;
+}
+ks{
+	font-family: "Arial";
+	font-weight: bold;
+    color: #0000CD	;
+	font-size: 90%;
+}
+kc{
+	font-family: "Arial";
+	font-weight: bold;
+    color: #008000	;
+	font-size: 90%;
+}
+pre{
+	font-family: "Consolas";
+	font-size: 85%;
+	background-color: #f5f5f5;
+	border: 1.5px solid silver;
+	padding: 5px;
+}
+m{
+	font-family: "Helvetica";
+	line-height: 100%;
+ 	font-size: 75%;
+}
+div.body{
+	 
+    font-size: 18px;
+}
+k{
+    color: #990000;
+	font-weight: bold;
+	font-size: 90%;
+}
+h1 {
+    font-size: 150%;
+    background-color: #b2c0ff;
+	padding: 10px;
+}
+
+h2 {
+    background-color: #9ed8ff;
+    font-size: 130%;
+}
+
+h3 {
+	background-color: #e6ccff;
+    font-size: 100%;
+}
+h4 {
+    background-color: #ccffcc;
+    font-size: 100%;
+	width: 95%;
+	border-radius: 5px;
+	padding: 2px;
+}
+h5 {
+    background-color: #d5ffb0;
+    font-size: 100%;
+
+}
+div.req{
+	background-color: #d9ffb3;
+    font-size: 18px;
+	width: 700px;
+    border: 3px solid green;
+    padding: 15px;
+    margin: 10px;
+}
+div.remark{
+	background-color: #E3F2FD;
+    border: 1.5px solid #d5f2ed;
+    padding: 15px;
+    margin: 10px;
+	border-radius: 25px;
+}
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+ol, ul, li {
+  margin: 0;
+  margin-left: 10px;
+  padding: 0;
+  padding-bottom: 5px;
+}
+
+table, th, td {
+	border: 1px solid black;
+}
+
+img {
+	border: 1.5px solid #d5f2ed
+
+}
+
+a, a:visited, a:active, a:link, a:hover {
+    text-decoration: underline;
+    color: #545454;
+    background-color: transparent;
+}
+
+div.wrapdesc{
+	width: 90%;
+	margin: auto;
+}
+
+div.imagedesc{
+	width: 85%;
+	margin: auto;
+}
+</style>
+    
+<head>
+   
+<title>CautiousExplorerActors</title></head>
+    
+<body>
+<div id="top">
+<h1>Lab ISS | the project cautiousExplorer with Actors<font size="5"></font> </h1>
+</div>  
+
+<div class="body"> 
+<h2>Introduction</h2>
+This case-study deals with the design and development of proactive/reactive software systems 
+based on the concept of Actor, as introduced in 
+<a href="../../it.unibo.supports/userDocs/wssupportAsActorJava.html" target="web">
+LabIss2021 | wshttp support with ActorBasicJava observers</a>.
+ 
+<h2>Requirements</h2>
+
+ 
+<div class="remark">
+Design and build a software system that allow the robot described in 
+<a href="https://htmlpreview.github.io/?https://github.com/anatali/issLab2021/blob/master/it.unibo.virtualRobot2020/userDocs/VirtualRobot2021.html" target="lab"><em>VirtualRobot2021.html</em></a>
+ to exibit the following behaviour:
+<ul>
+<li>the robot lives in a rectangular room, delimited by walls that includes one or more devices (e.g. sonar) able to detect the presence
+of obstacles, including the robot itself;</li>
+<li>the robot has a <ks>den</ks> for refuge, located in the position shown in the picture
+<center><img src="./img/cautiousExplorer.png" alt="cautiousExplorer" width="20%" ></center></li>
+<li>the robot works as an <i>explorer of the room</i>. Starting from its <ks>den</ks>,  the goal of the robot is to
+create a map of the room that records the position of the fixed obstacles. 
+The presence of mobile obstacles in the room is (at the moment) excluded;</li>
+<li>since the robot is <i>'cautious'</i>,  it  returns immediately to the <ks>den</ks> as soon as it finds an obstacle.
+It also stops for a while (e.g. 2 seconds), when it 'feels' that the sonar has detected its presence.
+</li>
+ 
+</ul>
+</div>
+
+<h2>Requirement analysis</h2>
+In addition to the definitions clarified in the lia_salvatore_ce.pdf document, another meeting with the client defines: 
+<ul>
+<li><ks>map</ks>: data structure that keeps track of the path taken by the robot and the obstacles found.</li>
+</ul>
+Regarding actions(verbs):
+<ul>
+<li><ks>feels</ks>: the sonar emits a beam that when it detects the robot sends a signal.</li>
+</ul>
+</div>
+<h2>Problem analysis</h2>
+ <h3>Relevant aspects</h3>
+
+<ol>
+<li>
+Create a distributed system consisting of two macro-components:
+	<ul>
+	<li>the (virtual) robot supplied by the client</li>
+	<li>our application (cautiousExplorer) which sends commands to the robot in order to satisfy the requirements</li>
+	</ul>
+</li>
+<li>The robot can be controlled via the network in two different ways, as described in
+<a href="VirtualRobot2021.html #commands" target="web">VirtualRobot2021.html: commands</a>:
+	<ul>
+	<li>sending messages to port 8090 with HTTP POST protocol</li>
+	<li>sending messages to port 8091 with a websocket</li>
+	</ul>
+</li>
+<li>
+Since there are numerous libraries in many programming languages that allow the sending of these commands,
+no significant abstraction-gap is identified on an operational level.
+</li>
+
+<li>
+We estimate that a first prototype of the application should be able to be built in six working days (at most).
+</li>
+</ol>
+
+
+<h3>Logical architecture</h3>
+
+<table style="width:98%">
+<tbody>	
+<tr>
+<td style="width:40%" >
+ <center><img src="./img/cea_logicArch0.png" alt="ce_logicArch0" width="70%" ></center>
+ 
+
+</td>
+<td>The exact nature of the cautiousExplorerActor component will be defined in the design phase.
+<br/><br/>
+Regarding the interaction we can say that:
+<ul>
+<li>the use of the HTTP protocol seems completely adequate, at least in a first phase; </li>
+<li>the use of the websocket could prove to be more flexible (as it allows to receive information emitted by WEnv in a 'spontaneous' way) and more efficient (as it reduces the protocol hierarchy).</li></li>
+</ul>
+</td>
+</tr>
+
+
+<tr>
+<td><h4>Another model (UML)</h4>
+
+ <center><img src="./img/CEAUsage.png" alt="CEUsage" width="70%" ></center>
+</td>
+<td>This model 'abstracts' from the technological details of the interaction.
+</td>
+</tr>
+
+
+ </tbody>
+</table>
+
+
+ 
+ 
+<h3>Problems identified</h3>
+
+<ol>
+<li><h4>Interaction abstraction</h4>
+The software system should be made as independent as possible from the communication protocol used for the interaction with WEnv.
+</li>
+
+<li><h4>Testing</h4>
+
+In order to perform an automatable TestPlan, the application must be observable, that is, make its effects verifiable by a machine.
+<br/>
+In particular, it is necessary to explicitly represent the knowledge of the answers obtained by Wenv (sensors or cameras are not available)
+<br/><br/>
+Within the application, a map capable of providing a model of the robot's actions must be created. In this way a test program can understand the map to perform the tests.
+
+<br/><br/>We can prefigure that the solution of the problem consists of the following algorithm:
+<pre>
+the robot starts from the den
+until the robot hits an obstacle:
+	send command to the robot
+if the sonar detect the robot:
+	the robot stop for 2 seconds
+	resume robot
+save the position of the obstacle
+the robot returns to the den
+</pre>
+</li>
+</ol>
+
+<h4>Strategy chosen for the test plan</h4>
+
+To make the discussion easier, we introduce the following command abbreviations <a href="VirtualRobot2021.html #cril" target="web">cril</a>:
+<pre>
+<ks>w</ks> : express the move <kc>{"robotmove":"moveForward", "time": 100}</kc>
+<ks>s</ks> : express the move <kc>{"robotmove":"moveBackward", "time ":100}</kc>
+<ks>l</ks> : express the move <kc>{"robotmove":"turnLeft ",   "time ":300}</kc>
+<ks>r</ks> : express the move <kc>{"robotmove":"turnRight",   "time ":300}</kc>
+</pre>
+
+<h2>Test plans</h2> 
+
+<ks>TESTPLAN 1</ks>:<br>
+for each successful move, we add the move identifier to a <kc> moves </kc> string (initially empty).
+<br/>
+We set the <kc> time </kc> value for the <ks> w, s </ks> moves to move the robot in 'small steps' (robot-unit movements), so as to reach an <ks> obstacle </ks> with <k> N> 1 </k> moves.
+<br/>
+When the robot hits an obstacle, the string must take the following form:
+<pre><kc>moves</kc>: <ks>"[lr]*[ws]+[wsrl]*"</ks>     <kc><ks>*</ks> : repeat 0 or more times</pre>
+Then the robot returns to the den replacing the forward moves with the backward moves, the left moves with the right moves and vice versa. The return moves are saved in a second string.
+So the two strings must be the opposite of each other.
+<br>
+The robot's moves are organized so that you can rerun to facilitate resolution in case of problems.
+
+<h2>Project</h2> 
+ <h3>ActorBasicJava</h3>
+
+<table style="width:98%">
+<tbody>	
+<tr>
+<td style="width:50%" >
+<a href="../app/src/main/java/it/unibo/supports2021/ActorBasicJava.java" target="code"><ks>ActorBasicJava.java</ks></a> :<br/>
+an abstract class that implements the concept of a message-driven entity that handles messages in FIFO order,
+by delegating the work to the abstract method <ks>handleInput</ks>.
+<pre>public abstract class <k>ActorBasicJava</k> extends Thread 
+   implements IJavaActor {...}
+</pre>
+
+ 
+<a href="../app/src/main/kotlin/it/unibo/interaction/IJavaActor.kt" target="code"><ks>IJavaActor.kt</ks></a> : <br/>
+defines the operations that each <tt>ActorBasicJava</tt> component must provide.
+<pre>
+package it.unibo.interaction
+interface <k>IJavaActor</k> : : IssActorObservable {
+    fun myname() : String
+    fun send(msg: String )
+}</pre>
+
+
+
+<a href="../app/src/main/kotlin/it/unibo/interaction/IssActorObservable.kt" target="code"><ks>IssActorObservable.kt</ks></a> :<br/>
+each <tt>ActorBasicJava</tt> component must be observable by other <tt>ActorBasicJava</tt> components
+<pre>
+package it.unibo.interaction
+interface <k>IssActorObservable</k> {
+    fun registerActor(obs: IJavaActor)
+    fun removeActor(obs: IJavaActor)
+}</pre>
+
+
+
+</td>
+
+<td>
+<center><img src="./img/ActorBasicJava.png" alt="ActorBasicJava" width="60%" ></center> 
+<br/>
+<center>Actor symbol: <img src="./img/ActorSymbol.png" alt="ActorSymbol" width="10%" ></center> 
+ <br/><br/>
+<ol>
+<li>Now, in our analysis and design phase, we can talk of two main types of components: <ks>objects</ks> (POJO) and <ks>actors</ks>.
+ <br/><br/></li>
+<li>An <a href="../app/src/main/java/it/unibo/supports2021/ActorBasicJava.java" target="code"><tt>ActorBasicJava</tt></a>
+has the capability to interact with other actors (known by reference) by using the following local operations:
+<pre><m>protected void <k>forward</k>(String msg, ActorBasicJava dest) { dest.send(msg); }
+protected void <k>request</k>(String msg, ActorBasicJava dest) { dest.send(msg); }
+protected void <k>reply</k>(String msg, ActorBasicJava dest) { dest.send(msg);   }</m>
+</pre>
+
+
+<!--
+<a href="../app/src/main/java/it/unibo/interaction/IssActorOperations.java" target="code"><ks>IssActorOperations</ks></a> set:-->
+ <br/><br/>
+ </li>
+<li>An <a href="../app/src/main/java/it/unibo/supports2021/ActorBasicJava.java" target="code"><tt>ActorBasicJava</tt></a>
+can be considered a sort of 'local-<a href="https://microservices.io/" target="web"><tt>microservice</tt></a>'
+ <br/><br/></li>
+</ol> 
+
+</td>
+</tr>
+
+
+<tr>
+<td style="width:50%" >
+<h3>Example: a producer-consumer system</h3>
+<a href="../app/src/main/java/it/unibo/supports2021/usage/prodCons/ActorProducer.java" target="code"><ks>ActorProducer.java</ks></a>:<br/>
+an actor that produces a sequence of items and sends then to a given consumer and to all the registered observers.
+<br/><br/>
+<a href="../app/src/main/java/it/unibo/supports2021/usage/prodCons/ActorConsumer.java" target="code"><ks>ActorConsumer.java</ks></a>: <br/>
+an actor that handles the items produced by the <tt>ActorProducer</tt>
+<br/><br/>
+<a href="../app/src/main/java/it/unibo/supports2021/usage/prodCons/ActorNaiveObserver.java" target="code"><ks>ActorNaiveObserver.java</ks></a>: <br/>
+an actor that simply shows the messages 
+<br/><br/> 
+<a href="../app/src/main/java/it/unibo/supports2021/usage/prodCons/MainProdConsActors.java" target="code"><ks>MainProdConsActors.java</ks></a>: <br/>
+the program that condfigures and starts the producer-consumer system
+<br/><br/>
+
+</td>
+<td>
+<center><img src="./img/prodConsSystem.png" alt="prodConsSystem" width="40%" ></center> 
+ 
+</td>
+</tr>
+
+
+ </tbody>
+</table>
+
+<h3>IssWsHttpJavaSupport</h3>
+<table style="width:98%">
+<tbody>	
+<tr>
+<td style="width:50%" >
+
+ 
+<a href="../app/src/main/java/it/unibo/supports2021/IssWsHttpJavaSupport.java" target="code"><ks>IssWsHttpJavaSupport.java</ks></a>:<br/>
+a class that extends the <a href="https://square.github.io/okhttp/3.x/okhttp/okhttp3/WebSocketListener.html" target="web">
+WebSocketListener</a> of the library <a href="https://square.github.io/okhttp/" target="web">OkHttp3</a>.
+This class is able to send / receive messages via <tt>http/ws</tt> and is able to
+send information to  <a href="../app/src/main/java/it/unibo/supports2021/ActorBasicJava.java" target="code"><tt>ActorBasicJava.java</tt></a>
+actors registered as abservers.  
+<pre><m>public class <k>IssWsHttpJavaSupport</k> extends WebSocketListener
+    implements IssActorObservable, IssCommSupport, IssOperations {
+</m></pre>
+
+<a href="../app/src/main/kotlin/it/unibo/interaction/IssCommActorSupport.kt" target="code"><ks>IssCommActorSupport.kt</ks></a>:<br/>
+ 
+<pre>
+package it.unibo.interaction
+import it.unibo.supports2021.ActorBasicJava
+interface <k>IssCommActorSupport</k>  {
+    fun isOpen() : Boolean
+    fun close()
+}
+</pre>
+
+ <a href="../app/src/main/java/it/unibo/supports2021/usage/MainIssWsHttpJavaSupportUsage.java" target="code">
+ <ks>MainIssWsHttpJavaSupportUsage.java</ks></a>:<br/>
+shows a demo of the usage of the  <tt>IssWsHttpJavaSupport.java</tt>.
+</td>
+<td>
+<center><img src="./img/supportDemo.png" alt="supportDemo" width="100%" ></center> 
+
+ 
+
+</td>
+</tr>
+
+<tr>
+<td style="width:50%" >
+<h3>Example: the cautiousExplorerActor (project <i>it.unibo.virtualrobotActor</i>)</h3> 
+ 
+<a href="../../it.unibo.virtualrobotclient/app/src/main/java/it/unibo/robotWithActorJava/MainRobotActorJava.java" target="code">
+MainRobotActorJava.java</a>:<br/>
+the <tt>cautiousExplorer</tt> application as a system composed of 
+<a href="../app/src/main/java/it/unibo/supports2021/ActorBasicJava.java" target="code"><tt>ActorBasicJava.java</tt></a>
+components.
+<br/><br/>
+
+</td>
+<td>
+<center><img src="./img/BaoundaryWalkerWithActors.png" alt="BaoundaryWalkerWithActors" width="100%" ></center> 
+</td>
+</tr>
+
+
+
+ </tbody>
+</table>
+
+
+<!--
+<a href="../app/src/main/kotlin/it/unibo/supports/IssWsHttpKotlinSupport.kt" target="code"><ks>IssWsHttpKotlinSupport.kt</ks></a>
+
+<h3>Java</h3>
+<a href="../app/src/main/java/it/unibo/supports2021/ActorBasicJava.java" target="code"><tt>ActorBasicJava.java</tt></a>
+<br/><br/>
+<a href="../app/src/main/java/it/unibo/supports2021/IssWsHttpJavaSupport.java" target="code"><ks>IssWsHttpJavaSupport.java</ks></a>
+<br/><br/>
+<a href="../app/src/main/java/it/unibo/supports2021/usage/ActorBasicJavaUsage.java" target="code"><tt>ActorBasicJavaUsage.java</tt></a>
+
+-->
+
+ 
+
+
+   <!--
+<ol>
+<li></li>
+<li></li>
+<li></li>
+</ol>
+<table style="width:98%">
+<tbody>	
+<tr>
+<td style="width:50%" >
+ 
+
+</td>
+<td>
+</td>
+</tr>
+ </tbody>
+</table>
+-->
+</div>
+
+<h2>Testing</h2> 
+ 
+
+<h2>Deployment</h2> 
+
+ 
+<h2>Maintenance</h2> 
+ 
+<!-- USEFUL
+<table style="width:100%" border="1">
+<tr>
+<td style="width:50%">
+</td>
+<td></td>
+</tr>
+</table>
+ QUESTIONS:
+chiarisce cosa il committente intende con 'Optionally'  
+chiarisce cosa il committente intende con 'should remember' 
+chiarisce cosa il committente intende con 'mental map'
+definisce la user story in modo da comprendere TUTTI i requisiti (anche opzionali)
+discute se sia meglio avvalersi di HTTP o delle websocket e perchè
+discute se sia meglio usare il linguaggio di comando cril, aril (o altro) e perchè
+discute se sia meglio muovere il robot in modo random o in modo organizzato 
+discute se il ritorno alla den debba/possa avvenire senza ricalcare il percorso effettuato
+presenta ogni TestPlan collegandolo ad una user story e in modo 'concreto' (non come un insieme di intenti)
+propone diverse tipologie di scene/situazioni per il testing
+individua e propone (motivandola) una lista di priorità per il soddisfacimento dei requisiti 
+presenta una stima dei tempi di realizzazione 
+presenta un elenco delle risorse che sarebbe opportuno avere e/o procurarsi
+presenta una architettura di progetto
+presenta dettagli di progetto che permettono una precisa implementazione da parte di chi legge
+pone in evidenza le parti di funzionamento proattivo e quelle di funzionamento reattivo
+ECCEDE nelle dimensioni del file (al momento > 1600Kb)
+
+
+-->
+	      	
+<br/><br/> 	
+</div>  
+<hr/>
+By Salvatore Lia
+<img src="./img/Salvatore.jpg" alt="Salvatore" width="5%" height="5%"> salvatore.lia@studio.unibo.it - <a href="https://github.com/SalvatoreLia/LiaSalvatore-Iss">https://github.com/SalvatoreLia/LiaSalvatore-Iss</a>
+</div> 
+</body>
+</html>
