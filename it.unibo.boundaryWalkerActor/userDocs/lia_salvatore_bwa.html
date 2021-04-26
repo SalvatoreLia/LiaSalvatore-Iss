@@ -1,0 +1,329 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <!--
+<link rel="stylesheet" type="text/css" href="../css/issStyle1.css">
+<script type="text/javascript" src="../css/issStyle.js"></script>
+-->
+<style type="text/css">
+body
+{
+    margin-left:  30px;
+    margin-right: 30px;
+};
+
+P
+{
+    font-family: Tahoma;
+    font-size: 10pt;
+};
+
+a, a:visited, a:active, a:link, a:hover {
+    text-decoration: underline;
+    color: #545454;
+    background-color: transparent;
+	font-size: 93%;
+}
+
+a:hover {
+    background-color: #cccccc;
+}
+
+
+hr {
+    clear: both;
+    height: 1px;
+    color: #242424;
+    background-color: transparent;
+}
+
+h1, h2, h3 {
+    color: #242424;
+    clear: left;
+    font: 100% Tahoma, Helvetica, Arial, sans-serif;
+    margin-bottom: 0.5em;
+    padding-top: 0.5em;
+	border-radius: 10px;
+	padding: 5px;
+}
+
+top {
+	width: 100%;
+}
+
+
+#i {
+    color: #ff1010;
+}
+tt{
+	font-family: "Arial";
+    font-size: 90%;
+	color: #006600;
+}
+em{
+	font-family: "Arial";
+    font-size: 80%;
+	font-weight: bold;
+	border-style:solid;
+	border-color: #abe876;
+    color: #1632cc;
+}
+bc{
+	font-family: "Arial";
+	font-size: 90%;
+	font-weight: bold;
+    color: #990000;
+	background-color: #fcf8c7;
+}
+ks{
+	font-family: "Arial";
+	font-weight: bold;
+    color: #0000CD	;
+	font-size: 90%;
+}
+kc{
+	font-family: "Arial";
+	font-weight: bold;
+    color: #008000	;
+	font-size: 90%;
+}
+pre{
+	font-family: "Consolas";
+	font-size: 85%;
+	background-color: #f5f5f5;
+	border: 1.5px solid silver;
+	padding: 5px;
+}
+m{
+	font-family: "Helvetica";
+	line-height: 100%;
+ 	font-size: 75%;
+}
+div.body{
+	 
+    font-size: 18px;
+}
+k{
+    color: #990000;
+	font-weight: bold;
+	font-size: 90%;
+}
+h1 {
+    font-size: 150%;
+    background-color: #b2c0ff;
+	padding: 10px;
+}
+
+h2 {
+    background-color: #9ed8ff;
+    font-size: 130%;
+}
+
+h3 {
+	background-color: #e6ccff;
+    font-size: 100%;
+}
+h4 {
+    background-color: #ccffcc;
+    font-size: 100%;
+	width: 95%;
+	border-radius: 5px;
+	padding: 2px;
+}
+h5 {
+    background-color: #d5ffb0;
+    font-size: 100%;
+
+}
+div.req{
+	background-color: #d9ffb3;
+    font-size: 18px;
+	width: 700px;
+    border: 3px solid green;
+    padding: 15px;
+    margin: 10px;
+}
+div.remark{
+	background-color: #E3F2FD;
+    border: 1.5px solid #d5f2ed;
+    padding: 15px;
+    margin: 10px;
+	border-radius: 25px;
+}
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+ol, ul, li {
+  margin: 0;
+  margin-left: 10px;
+  padding: 0;
+  padding-bottom: 5px;
+}
+
+table, th, td {
+	border: 1px solid black;
+}
+
+img {
+	border: 1.5px solid #d5f2ed
+
+}
+
+a, a:visited, a:active, a:link, a:hover {
+    text-decoration: underline;
+    color: #545454;
+    background-color: transparent;
+}
+
+div.wrapdesc{
+	width: 90%;
+	margin: auto;
+}
+
+div.imagedesc{
+	width: 85%;
+	margin: auto;
+}
+</style>
+    
+<head>
+   
+<title>ISS0_2021</title></head>
+    
+<body>
+<div id="top">
+<h1>Lab ISS 2021 | iss0 <font size="5"></font> </h1>
+</div>  
+
+<div class="body"> 
+
+
+
+
+<h2>Pros & cons</h2>
+As usully happens in oop, the
+<a href="https://stackify.com/solid-design-principles/" target="web">Single Responsibility Principle</a> could induce
+the software designer to distribute different behaviours in different actors.
+<br/> 
+An accurate analysis is required to consider the effects of different architectural configurations.	
+<br/> 
+Let us consider here what could happen if we want to introduce a <tt>StepRobotActor</tt>, as discussed 
+in the project phase of 
+<a href="../../it.unibo.cautiousExplorer/userDocs/cautiousExplorerActors.html#project" target="web">cautiousExplorerActors.html</a>.
+<div class="remark">
+The main feature of a <tt>StepRobotActor</tt> is related to its capability of executing a <k>step</k> in 
+'atomic' way (i.e. all or nothing). <br/>
+A step is done when distance traveled by the robot is equal to the diameter of the circle in which it is supposed to be inscribed.
+
+</div>
+<center><table style="width:95%">
+<tbody>	
+
+<tr>
+<td style="width:40%"><h3>Step+Basic: case 0</h3>
+<center><img src="./img/RobotUsageCall.png" alt="RobotUsageCall" width="80%" ></center>
+ </td>
+<td> 
+<center><img src="./img/StepAndBasic.png" alt="StepAndBasic" width="60%" ></center>
+<hr/>
+<ul>
+<li><ks>pros:</ks> division of roles </li>
+<li><ks>cons:</ks> one actor is required for each operation. This can take many actors </li>
+<li><ks>caveat:</ks> the support is controlled by two actors (StepRobotActor and BasicRobotActor). This could cause conflicts if the actors send commands at the same time </li>
+</ul>
+</td>
+</tr>
+
+<tr>
+<td><h3>Step+Basic: case 1</h3>
+
+<hr/>
+<ul>
+<li><ks>pros:</ks> the support is controlled by a single actor(BasicRobotActor). </li>
+<li><ks>cons:</ks> one actor is required for each operation. This can take many actors </li>
+<li><ks>caveat:</ks> the step move must be translated into a robotmove by the StepRobotActor. This operation requires time and the order of the moves could change </li>
+</ul>
+
+</td>
+<td>
+<center><img src="./img/StepAndBasicArch1.png" alt="StepAndBasicArch1" width="80%" ></center> 
+</td>
+</tr>
+
+<tr>
+<td><h3>Step+Basic: case 2</h3>
+
+<hr/>
+<ul>
+<li><ks>pros:</ks> the support is directly controlled by a single actor(BasicRobotActor); The StepRobotActor is the only entity that receive commands, no code confusion. </li>
+<li><ks>cons:</ks> all the moves must be translated into a robotmove by the StepRobotActor, this operation requires additional time </li>
+<li><ks>caveat:</ks> no </li>
+</ul>
+</td>
+<td>
+<center><img src="./img/StepAndBasicArch2.png" alt="StepAndBasicArch2" width="90%" ></center> 
+</td>
+</tr>
+
+
+<tr>
+<td><h3>Step+Basic: case 3</h3>
+<center><img src="./img/RobotUsageCall.png" alt="RobotUsageCall" width="60%" ></center>
+</td>
+<td>
+<!-- <center><img src="./img/BasicAndStepArch.png" alt="BasicAndStepArch" width="60%" ></center>  -->
+<center><img src="./img/BasicStepRobotActor.png" alt="BasicStepRobotActor" width="100%"  ></center>
+<hr/>
+<ul>
+<li><ks>pros:</ks> the support is directly controlled by a single actor(BasicRobotActor); there is only one actor (BasicStepRobotActor) and additional time for translation is no longer necessary; the message structure has been changed and it's universal for step and robotMove. </li>
+<li><ks>cons:</ks> all features are included in a single actor, which may be difficult to edit and maintain.</li>
+<li><ks>caveat:</ks> no </li>
+</ul>
+</td>
+</tr>
+
+
+</tbody>	
+</table></center>
+
+
+<h2>Problem analysis</h2>
+<h3>Problems identified</h3>
+Using the BasicStepRobotActor to realize the BoundaryWalker application the following problems were encountered:
+<ul>
+<li> when the robot hit an obstacle, the move cannot be completed and the robot execute a moveBackward moves. This moves is not tracked in the code and the stepper feels free to send any command. When the robot receive a command and is busy, it returns a notAllowed response by ignoring the cmd. </li>
+<li>To solve this problem it is necessary to intercept the time of the backward move and execute a new forward move with this time. In this way the robot will be at the end of the straight path and must turn left</li>
+</div>
+<h2>Deployment</h2>
+A prototype is available at <a href="https://github.com/SalvatoreLia/LiaSalvatore-Iss/tree/master/it.unibo.boundaryWalkerActor">here</a>. Run BoundaryWalkRobotActorCaller.kt file.
+
+ 
+ 
+
+ <!--
+
+<table style="width:98%">
+<tbody>	
+<tr>
+<td style="width:50%" >
+ 
+
+</td>
+<td>
+</td>
+</tr>
+ </tbody>
+</table>
+-->
+	      	
+<br/><br/> 	
+</div>  
+
+<div >
+<hr/>
+By Salvatore Lia
+<img src="./img/Salvatore.jpg" alt="Salvatore" width="8%" height="8%"> salvatore.lia@studio.unibo.it - <a href="https://github.com/SalvatoreLia/LiaSalvatore-Iss">https://github.com/SalvatoreLia/LiaSalvatore-Iss</a>
+</div> 
+</body>
+</html>
